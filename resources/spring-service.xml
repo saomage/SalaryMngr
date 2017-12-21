@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 扫描service包下所有使用注解的类型 -->
+	<context:component-scan base-package="com.hfut.sevice" />
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!--  注入数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<!-- 配置这个事务建议的属性 -->
+		<tx:attributes>
+			<!-- 指定所有get开头的方法执行在只读事务上下文中 -->
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="select*" read-only="true" />
+			<!-- 其余方法执行在默认的读写上下文中 -->
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 配置基于注解的声明式事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!--配置切口 -->
+	<aop:config>
+		<aop:pointcut id="pcut"
+			expression="execution(* com.hfut.sevice.*Service.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pcut" />
+	</aop:config>
+</beans>
