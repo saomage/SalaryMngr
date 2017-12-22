@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapper.BasicSalaryMapper">
+  <resultMap id="BaseResultMap" type="com.hfut.bean.BasicSalary">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="release_date" jdbcType="TIMESTAMP" property="releaseDate" />
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from basic_salary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hfut.bean.BasicSalary">
+    insert into basic_salary (id, release_date, employee_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{releaseDate,jdbcType=TIMESTAMP}, #{employeeId,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hfut.bean.BasicSalary">
+    update basic_salary
+    set release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      employee_id = #{employeeId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, release_date, employee_id
+    from basic_salary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, release_date, employee_id
+    from basic_salary
+  </select>
+</mapper>

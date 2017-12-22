@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.hfut.bean.Employee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="birth" jdbcType="TIMESTAMP" property="birth" />
+    <result column="edu" jdbcType="CHAR" property="edu" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="monthly_salary" jdbcType="DOUBLE" property="monthlySalary" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hfut.bean.Employee">
+    insert into employee (id, username, password, 
+      name, sex, birth, edu, 
+      tel, status, monthly_salary, 
+      department_id)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{birth,jdbcType=TIMESTAMP}, #{edu,jdbcType=CHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{monthlySalary,jdbcType=DOUBLE}, 
+      #{departmentId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hfut.bean.Employee">
+    update employee
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      edu = #{edu,jdbcType=CHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      monthly_salary = #{monthlySalary,jdbcType=DOUBLE},
+      department_id = #{departmentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, username, password, name, sex, birth, edu, tel, status, monthly_salary, 
+    department_id
+    from employee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, username, password, name, sex, birth, edu, tel, status, monthly_salary, 
+    department_id
+    from employee
+  </select>
+</mapper>

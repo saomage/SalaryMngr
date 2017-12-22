@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapper.CheckOffMapper">
+  <resultMap id="BaseResultMap" type="com.hfut.bean.CheckOff">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tax" jdbcType="DOUBLE" property="tax" />
+    <result column="insurance" jdbcType="DOUBLE" property="insurance" />
+    <result column="housing_fund" jdbcType="DOUBLE" property="housingFund" />
+    <result column="basic_salary_id" jdbcType="INTEGER" property="basicSalaryId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from check_off
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hfut.bean.CheckOff">
+    insert into check_off (id, tax, insurance, 
+      housing_fund, basic_salary_id)
+    values (#{id,jdbcType=INTEGER}, #{tax,jdbcType=DOUBLE}, #{insurance,jdbcType=DOUBLE}, 
+      #{housingFund,jdbcType=DOUBLE}, #{basicSalaryId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hfut.bean.CheckOff">
+    update check_off
+    set tax = #{tax,jdbcType=DOUBLE},
+      insurance = #{insurance,jdbcType=DOUBLE},
+      housing_fund = #{housingFund,jdbcType=DOUBLE},
+      basic_salary_id = #{basicSalaryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tax, insurance, housing_fund, basic_salary_id
+    from check_off
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, tax, insurance, housing_fund, basic_salary_id
+    from check_off
+  </select>
+</mapper>

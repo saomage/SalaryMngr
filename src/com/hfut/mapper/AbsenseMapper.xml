@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapper.AbsenseMapper">
+  <resultMap id="BaseResultMap" type="com.hfut.bean.Absense">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from absense
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hfut.bean.Absense">
+    insert into absense (id, date, employee_id, 
+      type, remarks)
+    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{employeeId,jdbcType=INTEGER}, 
+      #{type,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hfut.bean.Absense">
+    update absense
+    set date = #{date,jdbcType=TIMESTAMP},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      type = #{type,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, date, employee_id, type, remarks
+    from absense
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, date, employee_id, type, remarks
+    from absense
+  </select>
+</mapper>
