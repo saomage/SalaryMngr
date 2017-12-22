@@ -16,6 +16,7 @@ public class Overtime implements Serializable {
 
     private String remarks;
 
+    private BasicSalary basicSalary;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -67,4 +68,12 @@ public class Overtime implements Serializable {
     public String toJson() {
         return new Gson().toJson(this);
     }
+
+	public BasicSalary getBasicSalary() {
+		return basicSalary;
+	}
+
+	public void setBasicSalary(BasicSalary basicSalary) {
+		this.basicSalary = basicSalary;
+	}
 }

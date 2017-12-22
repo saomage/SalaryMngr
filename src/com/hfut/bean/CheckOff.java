@@ -15,7 +15,7 @@ public class CheckOff implements Serializable {
 
     private Double housingFund;
 
-    private Integer basicSalaryId;
+    private BasicSalary basicSalary;
 
     private static final long serialVersionUID = 1L;
 
@@ -51,13 +51,6 @@ public class CheckOff implements Serializable {
         this.housingFund = housingFund;
     }
 
-    public Integer getBasicSalaryId() {
-        return basicSalaryId;
-    }
-
-    public void setBasicSalaryId(Integer basicSalaryId) {
-        this.basicSalaryId = basicSalaryId;
-    }
 
     @Override
     public String toString() {
@@ -69,12 +62,18 @@ public class CheckOff implements Serializable {
         sb.append(", tax=").append(tax);
         sb.append(", insurance=").append(insurance);
         sb.append(", housingFund=").append(housingFund);
-        sb.append(", basicSalaryId=").append(basicSalaryId);
+
         sb.append("]");
         return sb.toString();
     }
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
+
+
+	public BasicSalary getBasicSalary() {
+		return basicSalary;
+	}
+
+	public void setBasicSalary(BasicSalary basicSalary) {
+		this.basicSalary = basicSalary;
+	}
 }

@@ -13,7 +13,7 @@ public class Allowance implements Serializable {
 
     private String remarks;
 
-    private Integer basicSalaryId;
+    private BasicSalary basicSalary;
 
     private static final long serialVersionUID = 1L;
 
@@ -41,13 +41,6 @@ public class Allowance implements Serializable {
         this.remarks = remarks;
     }
 
-    public Integer getBasicSalaryId() {
-        return basicSalaryId;
-    }
-
-    public void setBasicSalaryId(Integer basicSalaryId) {
-        this.basicSalaryId = basicSalaryId;
-    }
 
     @Override
     public String toString() {
@@ -58,12 +51,17 @@ public class Allowance implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", pay=").append(pay);
         sb.append(", remarks=").append(remarks);
-        sb.append(", basicSalaryId=").append(basicSalaryId);
         sb.append("]");
         return sb.toString();
     }
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
+
+
+	public BasicSalary getBasicSalary() {
+		return basicSalary;
+	}
+
+	public void setBasicSalary(BasicSalary basicSalary) {
+		this.basicSalary = basicSalary;
+	}
 }

@@ -46,7 +46,7 @@ public class Employee implements Serializable {
 
     private Double monthlySalary;
 
-    private Integer departmentId;
+    private Department department;
 
     private static final long serialVersionUID = 1L;
 
@@ -130,13 +130,7 @@ public class Employee implements Serializable {
         this.monthlySalary = monthlySalary;
     }
 
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
 
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
-    }
 
     @Override
     public String toString() {
@@ -154,12 +148,18 @@ public class Employee implements Serializable {
         sb.append(", tel=").append(tel);
         sb.append(", status=").append(status);
         sb.append(", monthlySalary=").append(monthlySalary);
-        sb.append(", departmentId=").append(departmentId);
+
         sb.append("]");
         return sb.toString();
     }
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
+
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 }

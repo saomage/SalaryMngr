@@ -1,59 +1,90 @@
 package com.hfut.bean;
 
-import com.google.gson.Gson;
+import java.util.List;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 
+ * @author
  */
 public class BasicSalary implements Serializable {
-    private Integer id;
+	private static final long serialVersionUID = 1L;
+	private Integer id;
 
-    private Date releaseDate;
+	private Date releaseDate;
 
-    private Integer employeeId;
+	private Employee employee;
 
-    private static final long serialVersionUID = 1L;
+	private List<Allowance> allowances;
+	private List<Overtime> overTimes;
+	private List<CheckOff> checkOffs;
+	private List<Absense> absenses;
 
-    public Integer getId() {
-        return id;
-    }
+	public List<Allowance> getAllowances() {
+		return allowances;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setAllowances(List<Allowance> allowances) {
+		this.allowances = allowances;
+	}
 
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
+	public List<Overtime> getOverTimes() {
+		return overTimes;
+	}
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
+	public void setOverTimes(List<Overtime> overTimes) {
+		this.overTimes = overTimes;
+	}
 
-    public Integer getEmployeeId() {
-        return employeeId;
-    }
+	public List<CheckOff> getCheckOffs() {
+		return checkOffs;
+	}
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
-    }
+	public void setCheckOffs(List<CheckOff> checkOffs) {
+		this.checkOffs = checkOffs;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", releaseDate=").append(releaseDate);
-        sb.append(", employeeId=").append(employeeId);
-        sb.append("]");
-        return sb.toString();
-    }
+	public List<Absense> getAbsenses() {
+		return absenses;
+	}
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
+	public void setAbsenses(List<Absense> absenses) {
+		this.absenses = absenses;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getClass().getSimpleName());
+		sb.append(" [");
+		sb.append("Hash = ").append(hashCode());
+		sb.append(", id=").append(id);
+		sb.append(", releaseDate=").append(releaseDate);
+		sb.append("]");
+		return sb.toString();
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 }

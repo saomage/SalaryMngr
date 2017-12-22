@@ -12,7 +12,7 @@ public class Absense implements Serializable {
 
     private Date date;
 
-    private Integer employeeId;
+    private BasicSalary basicSalary;
 
     private String type;
 
@@ -36,15 +36,8 @@ public class Absense implements Serializable {
         this.date = date;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
-    }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getType() {
+	public String getType() {
         return type;
     }
 
@@ -68,14 +61,18 @@ public class Absense implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", date=").append(date);
-        sb.append(", employeeId=").append(employeeId);
         sb.append(", type=").append(type);
         sb.append(", remarks=").append(remarks);
         sb.append("]");
         return sb.toString();
     }
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
+	public BasicSalary getBasicSalary() {
+		return basicSalary;
+	}
+
+	public void setBasicSalary(BasicSalary basicSalary) {
+		this.basicSalary = basicSalary;
+	}
+
 }
