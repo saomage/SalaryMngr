@@ -1,6 +1,5 @@
 package com.hfut.bean;
 
-import com.google.gson.Gson;
 import java.io.Serializable;
 
 /**

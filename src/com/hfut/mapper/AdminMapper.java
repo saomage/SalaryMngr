@@ -1,16 +1,9 @@
 package com.hfut.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hfut.bean.Admin;
-import java.util.List;
 
-public interface AdminMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Admin record);
-
-    Admin selectByPrimaryKey(Integer id);
-
-    List<Admin> selectAll();
-
-    int updateByPrimaryKey(Admin record);
+public interface AdminMapper extends BaseMapper<Admin>{
+	public Admin loginVerify(@Param("username")String username,@Param("password")String password);
 }

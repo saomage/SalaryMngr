@@ -1,6 +1,5 @@
 package com.hfut.bean;
 
-import com.google.gson.Gson;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +11,7 @@ public class Absense implements Serializable {
 
     private Date date;
 
-    private BasicSalary basicSalary;
+    private Employee employee;
 
     private String type;
 
@@ -67,12 +66,13 @@ public class Absense implements Serializable {
         return sb.toString();
     }
 
-	public BasicSalary getBasicSalary() {
-		return basicSalary;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setBasicSalary(BasicSalary basicSalary) {
-		this.basicSalary = basicSalary;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
+
 
 }

@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hfut.mapper.AbsenseMapper">
-  <resultMap id="BaseResultMap" type="com.hfut.bean.Absense">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="date" jdbcType="TIMESTAMP" property="date" />
-    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
-    <result column="type" jdbcType="CHAR" property="type" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from absense
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hfut.bean.Absense">
-    insert into absense (id, date, employee_id, 
-      type, remarks)
-    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{employeeId,jdbcType=INTEGER}, 
-      #{type,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.hfut.bean.Absense">
-    update absense
-    set date = #{date,jdbcType=TIMESTAMP},
-      employee_id = #{employeeId,jdbcType=INTEGER},
-      type = #{type,jdbcType=CHAR},
-      remarks = #{remarks,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, date, employee_id, type, remarks
-    from absense
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, date, employee_id, type, remarks
-    from absense
-  </select>
+	<resultMap id="BaseResultMap" type="com.hfut.bean.Absense">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="date" jdbcType="TIMESTAMP" property="date" />
+		<result column="type" jdbcType="CHAR" property="type" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<association property="employee" javaType="com.hfut.bean.Employee"
+			column="employee_id"
+			select="com.hfut.mapper.EmployeeMapper.selectByPrimaryKey" />
+	</resultMap>
+	<delete id="delete" parameterType="com.hfut.bean.Absense">
+		delete from
+		absense
+		where id = #{id}
+	</delete>
+	<insert id="insert" parameterType="com.hfut.bean.Absense">
+		insert into absense (date,
+		employee_id,
+		type, remarks)
+		values (#{date},
+		#{employee.id},
+		#{type}, #{remarks})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.hfut.bean.Absense">
+		update absense
+		<set>
+		<if test="date!=null">date=#{date},</if>
+		<if test="employee!=null">
+		<if test="employee.id!=null">employee_id=#{employee.id},</if>
+		</if>
+		<if test="type!=null">type=#{type},</if>
+		<if test="remarks!=null">remarks = #{remarks}</if>
+		</set>
+		where id = #{id}
+	</update>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select id, date,type, remarks, employee_id
+		from absense
+		where id = #{id}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, date, type,
+		remarks,employee_id
+		from absense
+	</select>
 </mapper>

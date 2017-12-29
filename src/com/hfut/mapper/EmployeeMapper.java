@@ -1,16 +1,10 @@
 package com.hfut.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hfut.bean.Employee;
-import java.util.List;
 
-public interface EmployeeMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface EmployeeMapper extends BaseMapper<Employee>{
+	public Employee loginVerify(@Param("username")String username,@Param("password")String password);
 
-    int insert(Employee record);
-
-    Employee selectByPrimaryKey(Integer id);
-
-    List<Employee> selectAll();
-
-    int updateByPrimaryKey(Employee record);
 }

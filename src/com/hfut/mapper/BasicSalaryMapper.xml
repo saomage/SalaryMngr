@@ -1,34 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hfut.mapper.BasicSalaryMapper">
-  <resultMap id="BaseResultMap" type="com.hfut.bean.BasicSalary">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="release_date" jdbcType="TIMESTAMP" property="releaseDate" />
-    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from basic_salary
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hfut.bean.BasicSalary">
-    insert into basic_salary (id, release_date, employee_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{releaseDate,jdbcType=TIMESTAMP}, #{employeeId,jdbcType=INTEGER}
-      )
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.hfut.bean.BasicSalary">
-    update basic_salary
-    set release_date = #{releaseDate,jdbcType=TIMESTAMP},
-      employee_id = #{employeeId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, release_date, employee_id
-    from basic_salary
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, release_date, employee_id
-    from basic_salary
-  </select>
+	<resultMap id="BaseResultMap" type="com.hfut.bean.BasicSalary">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="release_date" jdbcType="TIMESTAMP" property="releaseDate" />
+		<association property="employee" javaType="com.hfut.bean.Employee"
+			column="employee_id" select="com.hfut.mapper.EmployeeMapper.selectByPrimaryKey" />
+		<collection property="allowances" ofType="com.hfut.bean.Allowance">
+			<id column="a_id" jdbcType="INTEGER" property="id" />
+			<result column="a_pay" jdbcType="DOUBLE" property="pay" />
+			<result column="a_remarks" jdbcType="VARCHAR" property="remarks" />
+		</collection>
+		<collection property="overTimes" ofType="com.hfut.bean.Overtime">
+			<id column="o_id" jdbcType="INTEGER" property="id" />
+			<result column="o_date" jdbcType="TIMESTAMP" property="date" />
+			<result column="o_pay" jdbcType="DOUBLE" property="pay" />
+			<result column="o_remarks" jdbcType="VARCHAR" property="remarks" />
+		</collection>
+		<collection property="checkOffs" ofType="com.hfut.bean.CheckOff">
+			<id column="c_id" jdbcType="INTEGER" property="id" />
+			<result column="c_tax" jdbcType="DOUBLE" property="tax" />
+			<result column="c_insurance" jdbcType="DOUBLE" property="insurance" />
+			<result column="c_housing_fund" jdbcType="DOUBLE" property="housingFund" />
+		</collection>
+	</resultMap>
+	<delete id="delete" parameterType="com.hfut.bean.BasicSalary">
+		delete from
+		basic_salary
+		where id = #{id}
+	</delete>
+	<insert id="insert" parameterType="com.hfut.bean.BasicSalary">
+		insert into basic_salary (release_date, employee_id)
+		values (#{releaseDate},#{employee.id})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.hfut.bean.BasicSalary">
+		update
+		basic_salary
+		<set>
+		<if test="releaseDate!=null">release_date = #{releaseDate},</if>
+		<if test="employee!=null">
+		<if test="employee.id!=null">employee_id = #{employee.id}</if>
+		 </if>
+		</set>
+		where id =#{id}
+	</update>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select bs.id, bs.release_date, bs.employee_id,
+		al.id a_id,al.pay a_pay,al.remarks a_remarks,
+		ot.id o_id,ot.date o_date,ot.pay o_pay,ot.remarks o_remarks,
+		co.id c_id,co.tax c_tax,co.insurance c_insurance,co.housing_fund c_housing_fund
+		from basic_salary bs 
+		left join allowance al on bs.id=al.basic_salary_id
+		left join overtime ot on bs.id=ot.basic_salary_id
+		left join check_off co on bs.id=co.basic_salary_id
+		where
+		bs.id = #{id} 
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select bs.id, bs.release_date, bs.employee_id,
+		al.id a_id,al.pay a_pay,al.remarks a_remarks,
+		ot.id o_id,ot.date o_date,ot.pay o_pay,ot.remarks o_remarks,
+		co.id c_id,co.tax c_tax,co.insurance c_insurance,co.housing_fund c_housing_fund
+		from basic_salary bs 
+		left join allowance al on bs.id=al.basic_salary_id
+		left join overtime ot on bs.id=ot.basic_salary_id
+		left join check_off co on bs.id=co.basic_salary_id
+	</select>
 </mapper>

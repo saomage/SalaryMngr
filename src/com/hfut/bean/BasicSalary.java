@@ -18,7 +18,6 @@ public class BasicSalary implements Serializable {
 	private List<Allowance> allowances;
 	private List<Overtime> overTimes;
 	private List<CheckOff> checkOffs;
-	private List<Absense> absenses;
 
 	public List<Allowance> getAllowances() {
 		return allowances;
@@ -42,14 +41,6 @@ public class BasicSalary implements Serializable {
 
 	public void setCheckOffs(List<CheckOff> checkOffs) {
 		this.checkOffs = checkOffs;
-	}
-
-	public List<Absense> getAbsenses() {
-		return absenses;
-	}
-
-	public void setAbsenses(List<Absense> absenses) {
-		this.absenses = absenses;
 	}
 
 	public Integer getId() {

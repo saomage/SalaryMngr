@@ -8,5 +8,4 @@ import com.hfut.service.IAbsenseService;
 @Service
 public class AbsenseServiceImpl extends BaseServiceImpl<Absense> implements
 IAbsenseService{
-
 }

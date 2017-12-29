@@ -1,6 +1,7 @@
 package com.hfut.service.impl;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -45,14 +46,16 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 	@PostConstruct
 	public void init() {
 		try {
-			ParameterizedType genericSuperclass = (ParameterizedType) this
-					.getClass().getGenericSuperclass();
+
+			ParameterizedType genericSuperclass = (ParameterizedType) (this
+					.getClass().getGenericSuperclass());
+
 			Class<T> clazz = (Class<T>) genericSuperclass
 					.getActualTypeArguments()[0];
 			String simpleName = clazz.getSimpleName();
 			String mapperName = simpleName.substring(0, 1).toLowerCase()
 					+ simpleName.substring(1) + "Mapper";
-			Field field = this.getClass().getDeclaredField(mapperName);
+			Field field = this.getClass().getField(mapperName);
 			this.getClass().getField("baseMapper").set(this, field.get(this));
 		} catch (Exception e) {
 			e.printStackTrace();
